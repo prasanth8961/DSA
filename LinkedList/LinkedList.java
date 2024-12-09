@@ -2,64 +2,118 @@ import java.io.*;
 import java.util.*;
 
 class Node{
-  int data;
+  int val;
   Node next;
-   Node(int data){
-    this.data = data;
-    this.next = null;
-  }
+  Node(int val){
+   this.val = val;
+   this.next = null;
+ }
 }
-public class LinkedList{
-  private Node head;
 
-  LinkedList(){
-   head = null;
- }
-public void add(int data){
-  Node newNode = new Node(data);
-  if(head == null){
-   head = newNode; 
-  }else{
-    Node tempNode = head;
-     while(tempNode.next != null){
-      tempNode = tempNode.next;
-   }
-   tempNode.next = newNode;
-  }
- }
-public void insertAtFirst(int data){
- Node newNode = new Node(data);
- if(head == null){
-  head = newNode;
- }else{
-  newNode.next = head;
-  head = newNode;
- }
+public class LinkedList {
+    private Node head;
+public LinkedList() {
+    head = null;
 }
-public void insertAtPosition(int pos , int data){
- if(pos < 1){
-  return;
- }
- Node newNode = new Node(data);
- if(pos == 1){
-  newNode.next = head;
- }
- int idx = 1;
- Node prevNode = head;
- while(idx < pos - 1 && prevNode != null){
-   prevNode = prevNode.next;
-   idx++;
- }
- if(prevNode == null){
-   return;
- }
-newNode.next = prevNode.next;
-prevNode.next = newNode;
+public void add(int val){
+    Node newNode = new Node(val);  
+    if(head == null){
+      head = newNode; 
+    }else{
+	newNode.next = head;
+	head = newNode;
+    }
 }
-public void printValues(){
+public int get(int index) {
+      int idx = 0;
+      if(index < 0 || head == null){
+          return -1;
+      }
+      if(index == 0){
+          return head.val;
+      }
+         Node currentNode = head;
+           while(idx < index && currentNode.next != null){
+              idx++;
+              currentNode = currentNode.next;
+           }
+      if(idx != index) return -1;
+          return currentNode.val;
+}
+
+public void addAtHead(int val) {
+      Node newNode = new Node(val);
+      if(head == null){
+         head = newNode;
+      }else{
+          newNode.next = head;
+          head = newNode;
+    }
+}
+
+public void addAtTail(int val) {
+        Node newNode = new Node(val);
+        if(head == null){
+            head = newNode;
+            return;
+        }
+        Node tempNode = head;
+        while(tempNode.next != null){
+            tempNode = tempNode.next;
+        }
+        tempNode.next = newNode;
+    }
+
+public void addAtIndex(int index, int val) {
+        Node newNode = new Node(val);
+        if(index < 0){
+            return;    
+        }
+        if(head == null && index != 0){
+           return;
+        }
+        if(index == 0){
+           newNode.next = head;
+           head = newNode;
+           return;
+        } 
+        int idx = 0;
+        Node prevNode = head;
+        while(idx < index - 1 && prevNode.next != null){
+            idx++;
+            prevNode = prevNode.next;
+        }
+        if(prevNode.next == null){
+          prevNode.next = newNode;
+          return;
+        }
+        newNode.next = prevNode.next;
+        prevNode.next = newNode;
+    }
+public void deleteAtIndex(int index) {
+        if(index < 0 || head == null){
+            return;
+        }
+        if(index == 0){
+            head = head.next;
+            return;
+        }
+        int idx = 0;
+        Node prevNode = head;
+        while(idx < index - 1 && prevNode.next != null){
+            idx++;
+            prevNode =  prevNode.next;
+        }
+        if(prevNode.next == null){
+            return;
+        }
+        prevNode.next = prevNode.next.next;
+ }
+
+public void printList(){
   Node currentNode = head;
   while(currentNode != null){
-   System.out.print(currentNode.data + " ");
+   System.out.print(currentNode.val + " ");
    currentNode = currentNode.next;
   }
  }
@@ -71,9 +125,6 @@ public static void main(String[] args){
   linkedList.add(43);
   linkedList.add(28);
   linkedList.add(18);
-  linkedList.insertAtPosition(1,1);
-  linkedList.insertAtPosition(2,2);
-  linkedList.insertAtPosition(3,3);
-  linkedList.printValues();
+  linkedList.printList();
  }
 }
