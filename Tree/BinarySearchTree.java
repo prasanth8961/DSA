@@ -70,6 +70,5 @@ public class BinarySearchTree{
   System.out.println();
   System.out.println("PostOrder traverse");
   postOrderTraverse();
-  System.out.println();
  }
 }
