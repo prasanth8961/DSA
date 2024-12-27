@@ -88,6 +88,26 @@ public static void  levelOrder() {
                 }
         }
 }
+
+//<------------ SEARCH ELEMENT ------------->
+public static  boolean search(int key){
+        return searchValue(root , key);
+ }
+
+private boolean searchValue(Node root , int  key){
+        if(root == null){
+            return false;
+        }
+        if(root.data == key){
+            return true;
+        }
+        if(key < root.data){
+           return  searchValue(root.left, key);
+        }else {
+           return searchValue(root.right, key);
+        }
+ }
+
 //<------- MAIN --------->
 public static void main(String args[]){
   createTree();
@@ -100,6 +120,14 @@ public static void main(String args[]){
   System.out.println("PostOrder traverse");
   postOrderTraverse();
   System.out.println("LevelOrder traverse");
-  levelOrder(); 
+  levelOrder();
+  System.out.println("Search");
+  int data = (int) (Math.random() * 100) + 1; 
+  if(search(data)){
+  System.out.println(data + " is found");  
+}else{
+ System.out.println(data +" is not found");
+  }
+ }
 }
-}
+
