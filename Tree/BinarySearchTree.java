@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+//<------- NODE CLASS ----------->
 class Node{
   int data;
   Node left,right;
@@ -16,6 +17,7 @@ public class BinarySearchTree{
   root = null;
  }
  
+//<-------------- CREATING TREE WITH RANDOM DATA -------------->
  public static void createTree(){
    int size = (int) (Math.random() * 25) + 5;
    for(int i = 0; i < size; i++){
@@ -23,6 +25,7 @@ public class BinarySearchTree{
      root = insertRec(root , data);
    }
  }
+//<--------- INSERTING DATA ---------------------->
  private static Node insertRec(Node root , int data){
   if(root == null) return new Node(data);
   if(root.data == data) return root;
@@ -33,6 +36,7 @@ public class BinarySearchTree{
   }
   return root;
  }
+//<--------- TREE TRAVERSEL [PRE-ORDER] -------------->
  public static void preOrderTraverse(){
   preOrder(root);
  }
@@ -42,6 +46,7 @@ public class BinarySearchTree{
    preOrder(root.left);
    preOrder(root.right);
  }
+//<--------- TREE TRAVERSEL [IN-ORDER] ----------------->
  public static void inOrderTraverse(){
   inOrder(root);
  }
@@ -51,6 +56,7 @@ public class BinarySearchTree{
   System.out.print(root.data + " " );
   inOrder(root.right);
  }
+//<----------- TREE TRAVERSEL [POST-ORDER] -------------->
  public static void postOrderTraverse(){
   postOrder(root);
  }
@@ -60,7 +66,30 @@ public class BinarySearchTree{
   postOrder(root.right);
   System.out.print(root.data + " ");
  }
- public static void main(String args[]){
+//<--------TREE TRAVERSEL [LEVEL ORDER]------------->
+
+public static void  levelOrder() {
+      levelOrderTraverse(root);
+ }
+
+ private static void levelOrderTraverse(Node node) {
+        if(node == null) return;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(node);
+        while (!queue.isEmpty()) {
+                Node crNode = queue.poll();
+                System.out.print(crNode.data + " ");
+                if (crNode.left != null) {
+                    queue.offer(crNode.left);
+                }
+                if (crNode.right != null) {
+                    queue.offer(crNode.right);
+                }
+        }
+}
+//<------- MAIN --------->
+public static void main(String args[]){
   createTree();
   System.out.println("PreOrder traverse");
   preOrderTraverse();
@@ -70,5 +99,7 @@ public class BinarySearchTree{
   System.out.println();
   System.out.println("PostOrder traverse");
   postOrderTraverse();
- }
+  System.out.println("LevelOrder traverse");
+  levelOrder(); 
+}
 }
